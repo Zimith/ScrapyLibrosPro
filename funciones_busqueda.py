@@ -1,37 +1,30 @@
-from funciones_traduccion import traducir_palabra
 from funciones_mostrar import mostrar_resultados
+from funciones_scraping import normalizar_texto
+
 
 def buscar_por_titulo(libros):
-    palabra = input("Ingresá palabra o parte del título: ").strip()
-    palabra_en = traducir_palabra(palabra).lower()
-    palabra_es = palabra.lower()
-
+    palabra = normalizar_texto(input("Ingresá una palabra o parte del título: ").strip())
     resultados = [
-        l for l in libros
-        if palabra_en in l["titulo"].lower() or palabra_es in l["titulo"].lower()
+        libro for libro in libros if palabra in normalizar_texto(libro["titulo"])
     ]
     mostrar_resultados(resultados)
 
 
 def buscar_por_tematica(libros):
-    palabra = input("Ingresá la temática o categoría: ").strip()
-    palabra_en = traducir_palabra(palabra).lower()
-    palabra_es = palabra.lower()
-
+    palabra = normalizar_texto(input("Ingresá el autor: ").strip())
     resultados = [
-        l for l in libros
-        if palabra_en in l["categoria"].lower() or palabra_es in l["categoria"].lower()
+        libro
+        for libro in libros
+        if palabra in normalizar_texto(libro["autor"])
     ]
     mostrar_resultados(resultados)
 
 
 def buscar_por_descripcion(libros):
-    palabra = input("Ingresá palabra clave en la descripción: ").strip()
-    palabra_en = traducir_palabra(palabra).lower()
-    palabra_es = palabra.lower()
-
+    palabra = normalizar_texto(input("Ingresá una palabra clave: ").strip())
     resultados = [
-        l for l in libros
-        if palabra_en in l["descripcion"].lower() or palabra_es in l["descripcion"].lower()
+        libro
+        for libro in libros
+        if palabra in normalizar_texto(libro["descripcion"])
     ]
     mostrar_resultados(resultados)
